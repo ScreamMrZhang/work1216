@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./calendar.css">
+    <style>
+        body{
+            height: 100vh;
+            width: 100vw;
+        }
+        .date-picker{
+            width: 150px;
+            height: 34px;
+            border-radius: 4px;
+            border: 1px solid mediumaquamarine;
+            cursor: pointer;
+        }
+        .date-picker>input{
+            border: unset;
+            outline: none;
+            background-color: transparent;
+            height: 30px;
+        }
+        .date-picker:hover{
+            border-color: red;
+            /*outline: 1px solid red;*/
+        }
+        .calendar{
+            position: relative;
+            top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="date-picker">
+    <input type="text" value="" placeholder="请选择日期">
+    <div class="calendar">
+        <div class="calendar-toolbar">
+            <div class="calendar-toolbar_prev">←</div>
+            <div class="calendar-toolbar_title"></div>
+            <div class="calendar-toolbar_next">→</div>
+        </div>
+        <div class="calendar-main">
+            <div class="calendar-main_header">
+                <div>日</div>
+                <div>一</div>
+                <div>二</div>
+                <div>三</div>
+                <div>四</div>
+                <div>五</div>
+                <div>六</div>
+            </div>
+            <div class="calendar-main_body"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="./calendar.js">
+
+
+</script>
+<script>
+    var datePicker = document.querySelector(".date-picker");
+    var datePickerInner = document.querySelector(".date-picker>input");
+    calendar.init({selected:function (res) {
+        datePickerInner.value=`${res.year}-${res.month}-${res.date}`
+        calendar.hide();
+        }});
+
+    datePicker.addEventListener("click",function (e) {
+        e.stopPropagation();
+        if (!e.target.classList.contains("clen") && !calendar.getVisible()){
+            calendar.show();
+        }
+    })
+    document.body.addEventListener("click",function (e) {
+        calendar.getVisible() && calendar.hide();
+
+    })
+</script>
+</html>

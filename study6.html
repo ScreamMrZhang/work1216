@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    (function (window) {
+        // Stack
+        // 栈 LIFO(last in first out)
+        var prototype = {
+            push: function (value) {
+                this.items[this.count]=value;
+                this.count++;
+            },
+            pop: function () {
+                var item= this.items[this.count-1];
+                delete this.items[this.count-1];
+                this.count--;
+                return item
+            },
+            peek: function () {
+                return this.items[this.count-1];
+            },
+            isEmpty: function () {
+                return this.count===0;
+            },
+            clear: function () {
+                this.items={};
+                this.count=0;
+            },
+            size:function () {
+                return this.count;
+            },
+
+
+        };
+
+        function createStack() {
+            var stack={
+                count:0,
+                items:{}
+            };
+            stack.__proto__=prototype;
+            return stack;
+        }
+        window.createStack=createStack;
+    })(window);
+
+    var s1=createStack();
+    s1.push(11);
+    s1.push(22);
+
+    var bracket1 ='{}[]()';
+    var bracket2 ='{(})[]';
+    var bracket3 ='{}())';
+
+
+    // 有效的括号
+    function isValidBracket(bracket) {
+        if (typeof bracket !== "string") throw  new Error("bracket must be string");
+        if (bracket.length%2!==0) return false;
+        var stack =createStack();
+        for (let i = 0; i < bracket.length; i++) {
+            if (bracket[i]==='('){
+                stack.push(')');
+            }else if (bracket[i]==='['){
+                stack.push(']');
+            }else if (bracket[i]==='{'){
+                stack.push('}');
+            }else {
+                if (stack.peek()===bracket[i]){
+                    stack.pop();
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    console.log(isValidBracket(bracket1));
+    console.log(isValidBracket(bracket2));
+    console.log(isValidBracket(bracket3));
+
+
+    function toBinary(decimalNumber) {
+        var stack = createStack();
+        var binaryString ='';
+        while (decimalNumber>0){
+            var rest = decimalNumber%2;
+            stack.push(rest);
+            decimalNumber=parseInt(decimalNumber/2);
+        }
+        while (!stack.isEmpty()){
+            binaryString+=stack.pop();
+        }
+        return binaryString;
+    }
+
+    console.log(toBinary(10));
+</script>
+</html>

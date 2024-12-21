@@ -7,4 +7,45 @@
 <body>
 
 </body>
+<script>
+    var val = 123;
+
+    function echo() {
+        console.log(val);
+        var val ='msg';
+        function bar() {
+            console.log(val);
+        }
+        return bar;
+    }
+    // echo();
+    var fn=echo();
+    fn();
+
+    function suibian() {
+        var count =1;
+        function add() {
+            count++;
+        }
+        function soutCount() {
+            console.log(count)
+        }
+        return {add,soutCount}
+    }
+    var o = suibian();
+
+    (function () {
+        var count =1;
+        function add() {
+            count++;
+        }
+        function soutCount() {
+            console.log(count)
+        }
+        window.add=add;
+        window.soutCount=soutCount;
+    })()
+
+
+</script>
 </html>

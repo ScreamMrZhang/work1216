@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //原型作用：用来做属性和方法共享 （节约内存开销）
+    var o ={a:1,name:"o"};
+    var o1 ={b:2,name:"o1"};
+    var o2 ={c:3,name:"o2"};
+    o.__proto__=o1;
+    o1.__proto__=o2;
+
+    console.log(o.a);
+    console.log(o.b);
+    console.log(o.c);
+
+    (function (window) {
+        var publicA={
+            speak:function () {
+                console.log(this.name);
+                console.log('说话');
+            },
+            eat:function () {
+                console.log(this.name);
+                console.log('吃饭');
+            },
+        };
+        function createPerson(name, gender) {
+
+            var person = {
+                name:name,
+                gender:gender
+            }
+            person.__proto__=publicA;
+            return person;
+        }
+        window.createPerson=createPerson;
+    })(window)
+
+    var 张泽宣 = createPerson('张泽宣','男');
+    var 万倩 = createPerson('万倩','女');
+    var 芜湖 = createPerson('芜湖','男');
+
+</script>
+</html>
